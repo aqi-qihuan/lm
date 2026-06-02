@@ -86,7 +86,7 @@ const RewardModal: React.FC<RewardModalProps> = ({
       width={420}
       centered
       styles={{
-        content: {
+        root: {
           background: '#0B0D17',
           border: '1px solid rgba(240, 192, 96, 0.4)',
           borderRadius: 16,

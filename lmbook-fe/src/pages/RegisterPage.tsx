@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Form, Input, Button, message } from 'antd'
 import { UserOutlined, LockOutlined, MailOutlined, SendOutlined } from '@ant-design/icons'
 import { Link, useNavigate } from 'react-router-dom'
-import { register } from '@/services/userService'
+import { register, sendSmsCode } from '@/services/userService'
 
 /** HOK 营地风格注册页 */
 const RegisterPage: React.FC = () => {
@@ -30,7 +30,7 @@ const RegisterPage: React.FC = () => {
     if (!email) { message.warning('请先输入邮箱'); return }
     setCaptchaLoading(true)
     try {
-      await sendCaptcha(email)
+      await sendSmsCode(email)
       message.success('验证码已发送')
       setCountdown(60)
       const timer = setInterval(() => {

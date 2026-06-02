@@ -24,7 +24,7 @@ const HomePage: React.FC = () => {
   const [activeTag, setActiveTag] = useState('')
   const [tags, setTags] = useState<TagItem[]>([])
   const [feedMode, setFeedMode] = useState(false)
-  const debounceRef = useRef<ReturnType<typeof setTimeout>>()
+  const debounceRef = useRef<number>(undefined)
 
   const fetchArticles = useCallback(async (page = 1, pageSize = 12, kw = '', tag = '') => {
     setLoading(true)

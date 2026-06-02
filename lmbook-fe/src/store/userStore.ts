@@ -24,7 +24,7 @@ export const useUserStore = create<UserState>()(
 
       /** 登录 - Token 从响应头 x-jwt-token 获取 */
       login: async (email: string, password: string) => {
-        const response = await apiLogin(email, password)
+        await apiLogin(email, password)
         // Token 在 axios 拦截器中已处理（从响应头提取）
         const token = localStorage.getItem('token')
         if (token) {

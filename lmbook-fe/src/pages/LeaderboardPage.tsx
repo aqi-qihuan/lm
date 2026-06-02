@@ -25,7 +25,7 @@ const LeaderboardPage: React.FC = () => {
     fetchHotArticles(period)
   }, [period])
 
-  const fetchHotArticles = async (p: Period) => {
+  const fetchHotArticles = async (_p: Period) => {
     setLoading(true)
     try {
       const result = await getHotArticles({ limit: 20 })

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Input, Spin, Avatar, message } from 'antd'
 import { SearchOutlined, UserOutlined, FileTextOutlined } from '@ant-design/icons'
-import { useSearchParams, useNavigate, Link } from 'react-router-dom'
+import { useSearchParams, useNavigate } from 'react-router-dom'
 import { search } from '@/services/searchService'
 import ArticleCard from '@/components/ArticleCard'
 import { GlassCard, EmptyState } from '@/components/common'

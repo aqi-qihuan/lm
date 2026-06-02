@@ -7,6 +7,7 @@ const unwrap = (response: any) => response.data.data
 
 /** 创作者文章列表 - POST /articles/list */
 export const getArticleList = async (params: {
+  author?: number
   offset: number
   limit: number
 }): Promise<{ articles: Article[] }> => {

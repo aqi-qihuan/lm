@@ -6,10 +6,8 @@ import { Editor, Toolbar } from '@wangeditor/editor-for-react'
 import { IDomEditor, IEditorConfig, IToolbarConfig } from '@wangeditor/editor'
 import { saveArticle, publishArticle, getArticleDetail } from '@/services/articleService'
 import { getUserTags, createTag, attachTags } from '@/services/searchService'
-import { useUserStore } from '@/store/userStore'
-import '@wangeditor/editor/dist/css/style.css'
-import type { Author } from '@/types/article'
 
+import '@wangeditor/editor/dist/css/style.css'
 const WriteArticlePage: React.FC = () => {
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
@@ -20,7 +18,6 @@ const WriteArticlePage: React.FC = () => {
   const [publishing, setPublishing] = useState(false)
   const [loading, setLoading] = useState(false)
   const editorRef = useRef<IDomEditor | null>(null)
-  const { user } = useUserStore()
   const navigate = useNavigate()
   const { id } = useParams<{ id: string }>()
 
@@ -82,15 +79,6 @@ const WriteArticlePage: React.FC = () => {
     }
   }
 
-  // 构建 author 对象
-  const getAuthor = (): Author | undefined => {
-    if (!user?.id) return undefined
-    return {
-      id: user.id,
-      name: user.nickname || user.email || '',
-      avatar: user.avatar,
-    }
-  }
 
   // 添加标签
   const handleAddTag = () => {
@@ -117,8 +105,6 @@ const WriteArticlePage: React.FC = () => {
       const articleId = await saveArticle({
         title: title.trim(),
         content,
-        tags,
-        author: getAuthor(),
       })
       message.success('草稿保存成功！')
       if (articleId) {
@@ -189,7 +175,7 @@ const WriteArticlePage: React.FC = () => {
       {/* 顶部工具栏 */}
       <div className="sticky top-0 z-10 flex items-center justify-between" style={{ background: 'rgba(19,21,32,0.95)', backdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(240,192,96,0.08)', padding: '10px 12px' }}>
         <div className="flex items-center space-x-4">
-          <Link to="/" className="text-gray-600 hover:text-primary-600 transition-colors duration-200">
+          <Link to="/" className="text-gray-600 hover:text-gold transition-colors duration-200">
             <ArrowLeftOutlined className="text-xl" />
           </Link>
           <h1 className="text-xl font-semibold text-gray-800">

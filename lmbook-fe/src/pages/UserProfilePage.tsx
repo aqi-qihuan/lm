@@ -4,10 +4,10 @@ import { UserOutlined, SettingOutlined, PlusOutlined, MinusOutlined } from '@ant
 import { useParams, useNavigate } from 'react-router-dom'
 import { getUserProfile } from '@/services/userService'
 import { getArticleList } from '@/services/articleService'
-import { followUser, unfollowUser, getFollowStats } from '@/services/socialService'
+import { followUser, unfollowUser } from '@/services/socialService'
 import { useUserStore } from '@/store/userStore'
 import ArticleCard from '@/components/ArticleCard'
-import { GlassCard, EmptyState } from '@/components/common'
+import { EmptyState } from '@/components/common'
 import type { User } from '@/types/user'
 import type { Article } from '@/types/article'
 
@@ -46,7 +46,7 @@ const UserProfilePage: React.FC = () => {
     setArticlesLoading(true)
     try {
       const result = await getArticleList({ author: userId, offset: 0, limit: 50 })
-      setArticles(result)
+      setArticles(result.articles)
     } catch {} finally { setArticlesLoading(false) }
   }, [uid, currentUser])
 
