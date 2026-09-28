@@ -4,7 +4,6 @@ import (
 	"basic-go/lmbook/article/repository/dao"
 	prometheus2 "basic-go/lmbook/pkg/gormx/callbacks/prometheus"
 	"basic-go/lmbook/pkg/logger"
-	"basic-go/lmbook/pkg/wego"
 	"fmt"
 	"github.com/spf13/viper"
 	"gorm.io/driver/mysql"
