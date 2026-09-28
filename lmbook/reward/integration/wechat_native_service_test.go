@@ -2,6 +2,7 @@ package integration
 
 import (
 	pmtv1 "basic-go/lmbook/api/proto/gen/payment/v1"
+	accountmocks "basic-go/lmbook/api/proto/gen/account/v1/mocks"
 	pmtmocks "basic-go/lmbook/api/proto/gen/payment/v1/mocks"
 	"basic-go/lmbook/reward/domain"
 	"basic-go/lmbook/reward/integration/startup"
@@ -127,7 +128,7 @@ func (s *WechatNativeRewardServiceTestSuite) TestPreReward() {
 			tc.before(t)
 			ctrl := gomock.NewController(t)
 			defer ctrl.Finish()
-			svc := startup.InitWechatNativeSvc(tc.mock(ctrl))
+			svc := startup.InitWechatNativeSvc(tc.mock(ctrl), accountmocks.NewMockAccountServiceClient(ctrl))
 			codeURL, err := svc.PreReward(context.Background(), tc.r)
 			assert.Equal(t, tc.wantErr, err)
 			assert.Equal(t, tc.wantData, codeURL)

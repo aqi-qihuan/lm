@@ -7,6 +7,7 @@
 package startup
 
 import (
+	"basic-go/lmbook/api/proto/gen/account/v1"
 	"basic-go/lmbook/api/proto/gen/payment/v1"
 	"basic-go/lmbook/reward/repository"
 	"basic-go/lmbook/reward/repository/cache"
@@ -17,14 +18,15 @@ import (
 
 // Injectors from wire.go:
 
-func InitWechatNativeSvc(client pmtv1.WechatPaymentServiceClient) *service.WechatNativeRewardService {
+func InitWechatNativeSvc(client pmtv1.WechatPaymentServiceClient,
+	acli accountv1.AccountServiceClient) service.RewardService {
 	gormDB := InitTestDB()
 	rewardDAO := dao.NewRewardGORMDAO(gormDB)
 	cmdable := InitRedis()
 	rewardCache := cache.NewRewardRedisCache(cmdable)
 	rewardRepository := repository.NewRewardRepository(rewardDAO, rewardCache)
 	loggerV1 := InitLogger()
-	wechatNativeRewardService := service.NewWechatNativeRewardService(client, rewardRepository, loggerV1)
+	wechatNativeRewardService := service.NewWechatNativeRewardService(client, rewardRepository, loggerV1, acli)
 	return wechatNativeRewardService
 }
 
