@@ -1,6 +1,6 @@
 module basic-go
 
-go 1.26.2
+go 1.27.1
 
 require (
 	github.com/IBM/sarama v1.50.3
