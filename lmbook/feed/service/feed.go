@@ -42,7 +42,7 @@ func (f *feedService) CreateFeedEvent(ctx context.Context, feed domain.FeedEvent
 		// 有一个 defaultHandler，然后调用 defaultHandler
 		return fmt.Errorf("未能找到对应的 Handler %s", feed.Type)
 	}
-	return handler.CreateFeedEvent(ctx, feed.Ext)
+	return handler.CreateFeedEvent(ctx, feed)
 }
 
 // GetFeedEventListV1 不依赖于 Handler 的直接查询

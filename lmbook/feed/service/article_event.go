@@ -77,7 +77,8 @@ func (h *ArticleEventHandler) FindFeedEvents(ctx context.Context, uid, timestamp
 	return events[:slice.Min[int]([]int{int(limit), len(events)})], nil
 }
 
-func (h *ArticleEventHandler) CreateFeedEvent(ctx context.Context, ext domain.ExtendFields) error {
+func (h *ArticleEventHandler) CreateFeedEvent(ctx context.Context, evt domain.FeedEvent) error {
+	ext := evt.Ext
 	uid, err := ext.Get("followee").AsInt64()
 	if err != nil {
 		return err

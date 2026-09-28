@@ -2,7 +2,6 @@ package ioc
 
 import (
 	"basic-go/lmbook/feed/events"
-	"basic-go/lmbook/pkg/saramax"
 	"github.com/IBM/sarama"
 	"github.com/spf13/viper"
 )
@@ -26,8 +25,8 @@ func InitKafka() sarama.Client {
 }
 
 // NewConsumers 面临的问题依旧是所有的 Consumer 在这里注册一下
-func NewConsumers(article *events.ArticleEventConsumer, feed *events.FeedEventConsumer) []saramax.Consumer {
-	return []saramax.Consumer{
+func NewConsumers(article *events.ArticleEventConsumer, feed *events.FeedEventConsumer) []events.Consumer {
+	return []events.Consumer{
 		article,
 		feed,
 	}

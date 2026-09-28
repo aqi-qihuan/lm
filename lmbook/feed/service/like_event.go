@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	LikeEventName = "follow_event"
+	LikeEventName = "like_event"
 )
 
 type LikeEventHandler struct {
@@ -29,7 +29,8 @@ func (f *LikeEventHandler) FindFeedEvents(ctx context.Context, uid, timestamp, l
 // 如果 A 关注了 B，那么
 // follower 就是 A
 // followee 就是 B
-func (f *LikeEventHandler) CreateFeedEvent(ctx context.Context, ext domain.ExtendFields) error {
+func (f *LikeEventHandler) CreateFeedEvent(ctx context.Context, evt domain.FeedEvent) error {
+	ext := evt.Ext
 	followee, err := ext.Get("followee").AsInt64()
 	if err != nil {
 		return err
