@@ -1,2 +1,10 @@
 .idea
 test.db
+
+# Go 本地构建缓存（绕过系统钩子的本地缓存）
+.gocache/
+.gomodcache/
+.gotmp/
+
+# WorkBuddy 工作区数据
+.workbuddy/
