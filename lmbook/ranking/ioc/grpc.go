@@ -9,7 +9,7 @@ import (
 
 func InitGRPCxServer(rankingServer *grpc2.RankingServiceServer) *grpcx.Server {
 	type Config struct {
-		Addr string `yaml:"addr"`
+		Port int `yaml:"port"`
 	}
 	var cfg Config
 	err := viper.UnmarshalKey("grpc.server", &cfg)
@@ -20,6 +20,6 @@ func InitGRPCxServer(rankingServer *grpc2.RankingServiceServer) *grpcx.Server {
 	rankingServer.Register(server)
 	return &grpcx.Server{
 		Server: server,
-		Addr:   cfg.Addr,
+		Port:   cfg.Port,
 	}
 }

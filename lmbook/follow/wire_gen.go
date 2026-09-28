@@ -10,6 +10,7 @@ import (
 	"basic-go/lmbook/follow/grpc"
 	"basic-go/lmbook/follow/ioc"
 	"basic-go/lmbook/follow/repository"
+	"basic-go/lmbook/follow/repository/cache"
 	"basic-go/lmbook/follow/repository/dao"
 	"basic-go/lmbook/follow/service"
 	"github.com/google/wire"
@@ -20,8 +21,10 @@ import (
 func Init() *App {
 	loggerV1 := ioc.InitLogger()
 	db := ioc.InitDB(loggerV1)
+	redisCmdable := ioc.InitRedis()
 	followRelationDao := dao.NewGORMFollowRelationDAO(db)
-	followRelationRepository := repository.NewFollowRelationRepository(followRelationDao)
+	followCache := cache.NewRedisFollowCache(redisCmdable)
+	followRelationRepository := repository.NewFollowRelationRepository(followRelationDao, followCache, loggerV1)
 	followRelationService := service.NewFollowRelationService(followRelationRepository)
 	followRelationServiceServer := grpc.NewFollowRelationServiceServer(followRelationService)
 	server := ioc.InitGRPCxServer(followRelationServiceServer)
