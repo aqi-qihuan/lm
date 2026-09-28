@@ -21,7 +21,7 @@ func Init() *App {
 	loggerV1 := ioc.InitLogger()
 	db := ioc.InitDB(loggerV1)
 	commentDAO := dao.NewCommentDAO(db)
-	commentRepo := repository.NewCommentRepo(commentDAO)
+	commentRepo := repository.NewCommentRepo(commentDAO, loggerV1)
 	commentService := service.NewCommentSvc(commentRepo)
 	commentServiceServer := grpc.NewGrpcServer(commentService)
 	server := ioc.InitGRPCxServer(commentServiceServer)

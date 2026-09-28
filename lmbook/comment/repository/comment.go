@@ -63,9 +63,10 @@ func (c *CachedCommentRepo) FindByBiz(ctx context.Context, biz string,
 			if err != nil {
 				return err
 			}
-			cm.Children = make([]domain.Comment, 0, len(subComments))
+			cm.Children = make([]*domain.Comment, 0, len(subComments))
 			for _, sc := range subComments {
-				cm.Children = append(cm.Children, c.toDomain(sc))
+				sub := c.toDomain(sc)
+				cm.Children = append(cm.Children, &sub)
 			}
 			return nil
 		})

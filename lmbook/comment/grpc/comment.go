@@ -27,7 +27,7 @@ func NewGrpcServer(svc service.CommentService) *CommentServiceServer {
 }
 
 func (c *CommentServiceServer) GetMoreReplies(ctx context.Context, req *commentv1.GetMoreRepliesRequest) (*commentv1.GetMoreRepliesResponse, error) {
-	cs, err := c.svc.GetMoreReplies(ctx, req.Rid, req.MinId, req.Limit)
+	cs, err := c.svc.GetMoreReplies(ctx, req.Rid, req.MaxId, req.Limit)
 	if err != nil {
 		return nil, err
 	}

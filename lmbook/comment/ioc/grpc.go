@@ -9,7 +9,7 @@ import (
 
 func InitGRPCxServer(comment *grpc2.CommentServiceServer) *grpcx.Server {
 	type Config struct {
-		Addr string `yaml:"addr"`
+		Port int `yaml:"port"`
 	}
 	var cfg Config
 	err := viper.UnmarshalKey("grpc", &cfg)
@@ -20,6 +20,6 @@ func InitGRPCxServer(comment *grpc2.CommentServiceServer) *grpcx.Server {
 	comment.Register(server)
 	return &grpcx.Server{
 		Server: server,
-		Addr:   cfg.Addr,
+		Port:   cfg.Port,
 	}
 }
