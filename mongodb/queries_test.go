@@ -155,7 +155,7 @@ func (s *MongoDBTestSuite) TestProject() {
 		bson.D{bson.E{Key: "id",
 			Value: bson.D{bson.E{Key: "$in", Value: []int{123, 234}}}}},
 		// 只查询 id
-		options.Find().SetProjection(bson.D{{"id", 1}}))
+		options.Find().SetProjection(bson.D{bson.E{Key: "id", Value: 1}}))
 	assert.NoError(s.T(), err)
 	var arts []Article
 	err = res.All(ctx, &arts)

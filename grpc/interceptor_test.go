@@ -1,7 +1,7 @@
 package grpc
 
 import (
-	"basic-go/lmbook/pkg/grpcx/interceptor/trace"
+	"basic-go/lmbook/pkg/grpcx/interceptors/trace"
 	"context"
 	"net"
 	"testing"
