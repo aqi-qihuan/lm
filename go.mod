@@ -25,7 +25,6 @@ require (
 	github.com/hashicorp/golang-lru v1.0.2
 	github.com/lithammer/shortuuid/v4 v4.2.0
 	github.com/nacos-group/nacos-sdk-go/v2 v2.3.5
-	github.com/olivere/elastic/v7 v7.0.32
 	github.com/pkg/errors v0.9.1
 	github.com/prometheus/client_golang v1.23.2
 	github.com/redis/go-redis/v9 v9.21.0

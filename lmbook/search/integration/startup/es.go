@@ -2,20 +2,13 @@ package startup
 
 import (
 	"basic-go/lmbook/search/repository/dao"
-	"github.com/olivere/elastic/v7"
-	"log"
-	"time"
+	"github.com/elastic/go-elasticsearch/v8"
 )
 
-func InitESClient() *elastic.Client {
-	const timeout = 10 * time.Second
-	opts := []elastic.ClientOptionFunc{
-		elastic.SetURL("http://localhost:9200"),
-		elastic.SetSniff(false),
-		elastic.SetHealthcheckTimeoutStartup(timeout),
-		elastic.SetTraceLog(log.Default()),
-	}
-	client, err := elastic.NewClient(opts...)
+func InitESClient() *elasticsearch.Client {
+	client, err := elasticsearch.NewClient(elasticsearch.Config{
+		Addresses: []string{"http://localhost:9200"},
+	})
 	if err != nil {
 		panic(err)
 	}

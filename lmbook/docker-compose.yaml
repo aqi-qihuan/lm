@@ -90,9 +90,9 @@ services:
   #      - "8848:8848"
   #      - "9848:9848"
 
-  # ES 三件套升级挪到 P2 阶段（olivere v7 客户端需与服务器同步替换，避免兼容性断层）
+  # ES 三件套 8.19 与 go-elasticsearch/v8 v8.19.6 客户端版本对齐（P2：olivere v7 已同步替换为官方 v8 客户端）
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.13.0
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.19.6
     container_name: elasticsearch
     environment:
       - discovery.type=single-node
@@ -101,7 +101,7 @@ services:
     ports:
       - "9200:9200"
   logstash:
-    image: docker.elastic.co/logstash/logstash:7.13.0
+    image: docker.elastic.co/logstash/logstash:8.19.6
     volumes:
       - ./config/logstash:/usr/share/logstash/pipeline
     environment:
@@ -110,7 +110,7 @@ services:
       - 5044:5044
   kibana:
     #    注意检查你的 ElasticSearch 版本，这边我将 ES 也改到了这个版本
-    image: docker.elastic.co/kibana/kibana:7.13.0
+    image: docker.elastic.co/kibana/kibana:8.19.6
     environment:
       - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
       - i18n.locale=zh-CN
