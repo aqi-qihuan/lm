@@ -188,7 +188,8 @@ func (s *LoadBalancerTestSuite) startFailoverServer(addr string) {
 	assert.NoError(t, err)
 
 	// 忽略掉 ctx，因为在测试环境下，我们不需要手动控制退出续约
-	kaCtx, _ := context.WithCancel(context.Background())
+	kaCtx, cancel := context.WithCancel(context.Background())
+	defer cancel()
 	go func() {
 		_, err1 := s.cli.KeepAlive(kaCtx, leaseResp.ID)
 		require.NoError(t, err1)
@@ -229,7 +230,8 @@ func (s *LoadBalancerTestSuite) startWeightedServer(addr string, weight int) {
 	assert.NoError(t, err)
 
 	// 忽略掉 ctx，因为在测试环境下，我们不需要手动控制退出续约
-	kaCtx, _ := context.WithCancel(context.Background())
+	kaCtx, cancel := context.WithCancel(context.Background())
+	defer cancel()
 	go func() {
 		_, err1 := s.cli.KeepAlive(kaCtx, leaseResp.ID)
 		require.NoError(t, err1)
