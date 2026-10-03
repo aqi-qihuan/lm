@@ -4,7 +4,7 @@
 
 **A comprehensive Go language technical learning and practice project**
 
-[![Go Version](https://img.shields.io/badge/Go-1.26+-00ADD8?style=flat&logo=go)](https://golang.org)
+[![Go Version](https://img.shields.io/badge/Go-1.27+-00ADD8?style=flat&logo=go)](https://golang.org)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](.)
 
@@ -79,7 +79,7 @@ basic-go/
 
 ### Prerequisites
 
-- **Go**: 1.26+ (recommended 1.26.2+)
+- **Go**: 1.27+ (recommended 1.27.1+)
 - **MySQL**: 5.7+ or 8.0+
 - **Redis**: 6.0+
 - **Docker** & **Docker Compose** (optional, for containerized deployment)

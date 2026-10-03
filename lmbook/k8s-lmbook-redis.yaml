@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: lmbook-redis
-          image: redis:latest
+          image: redis:7.4
           ports:
 #           Redis 都是监听 6379 的
             - containerPort: 6379

@@ -4,7 +4,7 @@
 
 **一个基于 Go 语言的综合社区实践项目**
 
-[![Go Version](https://img.shields.io/badge/Go-1.26+-00ADD8?style=flat&logo=go)](https://golang.org)
+[![Go Version](https://img.shields.io/badge/Go-1.27+-00ADD8?style=flat&logo=go)](https://golang.org)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](.)
 
@@ -79,9 +79,9 @@ basic-go/
 
 ### 前置要求
 
-- **Go**: 1.26+ （推荐 1.26.2+）
-- **MySQL**: 5.7+ 或 8.0+
-- **Redis**: 6.0+
+- **Go**: 1.27+ （推荐 1.27.1+）
+- **MySQL**: 8.0+ （compose 已升 8.4）
+- **Redis**: 6.0+ （compose 已升 7.4）
 - **Docker** & **Docker Compose** （可选，用于容器化部署）
 
 ### 方式一：直接安装（推荐用于开发）
