@@ -2,11 +2,14 @@ package wechat
 
 import (
 	"basic-go/lmbook/payment/domain"
+	"basic-go/lmbook/payment/repository/mocks"
+	"basic-go/lmbook/pkg/logger"
 	"context"
 	"encoding/json"
 	"fmt"
 	"github.com/ecodeclub/ekit/net/httpx"
 	"github.com/stretchr/testify/assert"
+	"go.uber.org/mock/gomock"
 	"github.com/stretchr/testify/require"
 	"github.com/wechatpay-apiv3/wechatpay-go/core"
 	"github.com/wechatpay-apiv3/wechatpay-go/core/auth/verifiers"
@@ -44,7 +47,10 @@ func TestNativeService_Prepay(t *testing.T) {
 	nativeSvc := &native.NativeApiService{
 		Client: client,
 	}
-	svc := NewNativePaymentService(nativeSvc, appid, mchID)
+	ctrl := gomock.NewController(t)
+	repo := repomocks.NewMockPaymentRepository(ctrl)
+	repo.EXPECT().AddPayment(gomock.Any(), gomock.Any()).Return(nil).AnyTimes()
+	svc := NewNativePaymentService(nativeSvc, repo, nil, logger.NewNoOpLogger(), appid, mchID)
 	codeUrl, err := svc.Prepay(ctx, domain.Payment{
 		Amt: domain.Amount{
 			Currency: "CNY",

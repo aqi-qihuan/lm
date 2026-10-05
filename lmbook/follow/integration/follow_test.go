@@ -34,7 +34,7 @@ func (s *FollowRelationSuite) TestFollowRelation_ADD() {
 	testcases := []struct {
 		name    string
 		before  func()
-		req     *followv1.AddFollowRelationRequest
+		req     *followv1.FollowRequest
 		wantVal *followv1.FollowRelation
 		wantErr error
 	}{
@@ -42,7 +42,7 @@ func (s *FollowRelationSuite) TestFollowRelation_ADD() {
 			name: "添加正常",
 			before: func() {
 			},
-			req: &followv1.AddFollowRelationRequest{
+			req: &followv1.FollowRequest{
 				Followee: 1,
 				Follower: 2,
 			},
@@ -54,13 +54,13 @@ func (s *FollowRelationSuite) TestFollowRelation_ADD() {
 		{
 			name: "关注关系重复",
 			before: func() {
-				_, err := s.server.AddFollowRelation(context.Background(), &followv1.AddFollowRelationRequest{
+				_, err := s.server.Follow(context.Background(), &followv1.FollowRequest{
 					Followee: 2,
 					Follower: 1,
 				})
 				require.NoError(s.T(), err)
 			},
-			req: &followv1.AddFollowRelationRequest{
+			req: &followv1.FollowRequest{
 				Followee: 2,
 				Follower: 1,
 			},
@@ -73,7 +73,7 @@ func (s *FollowRelationSuite) TestFollowRelation_ADD() {
 	for _, tc := range testcases {
 		s.T().Run(tc.name, func(t *testing.T) {
 			tc.before()
-			_, err := s.server.AddFollowRelation(context.Background(), tc.req)
+			_, err := s.server.Follow(context.Background(), tc.req)
 			assert.Equal(t, tc.wantErr, err)
 			if err != nil {
 				return
@@ -116,7 +116,7 @@ func (s *FollowRelationSuite) TestFollowRelation_List() {
 					},
 				}
 				for _, req := range reqs {
-					_, err := s.server.AddFollowRelation(context.Background(), &followv1.AddFollowRelationRequest{
+					_, err := s.server.Follow(context.Background(), &followv1.FollowRequest{
 						Followee: req.Followee,
 						Follower: req.Follower,
 					})
@@ -134,7 +134,7 @@ func (s *FollowRelationSuite) TestFollowRelation_List() {
 	for _, tc := range testcases {
 		s.T().Run(tc.name, func(t *testing.T) {
 			tc.before()
-			resp, err := s.server.FollowRelationList(context.Background(), &followv1.FollowRelationListRequest{
+			resp, err := s.server.GetFollowee(context.Background(), &followv1.GetFolloweeRequest{
 				Follower: tc.req,
 				Limit:    3,
 				Offset:   0,
@@ -152,14 +152,14 @@ func (s *FollowRelationSuite) TestFollowRelation_List() {
 func (s *FollowRelationSuite) TestFollowRelation_Info() {
 	// 准备数据
 	t := s.T()
-	_, err := s.server.AddFollowRelation(context.Background(), &followv1.AddFollowRelationRequest{
+	_, err := s.server.Follow(context.Background(), &followv1.FollowRequest{
 		Followee: 8,
 		Follower: 9,
 	})
 	require.NoError(t, err)
 	relation, err := s.GetFollowRelation(8, 9)
 	require.NoError(s.T(), err)
-	resp, err := s.server.FollowRelationInfo(context.Background(), &followv1.FollowRelationInfoRequest{
+	resp, err := s.server.FollowInfo(context.Background(), &followv1.FollowInfoRequest{
 		Follower: relation.Follower,
 		Followee: relation.Followee,
 	})
@@ -173,7 +173,7 @@ func (s *FollowRelationSuite) TestFollowRelation_Info() {
 }
 
 func (s *FollowRelationSuite) GetFollowRelation(followee, follower int64) (*followv1.FollowRelation, error) {
-	resp, err := s.server.FollowRelationInfo(context.Background(), &followv1.FollowRelationInfoRequest{
+	resp, err := s.server.FollowInfo(context.Background(), &followv1.FollowInfoRequest{
 		Follower: follower,
 		Followee: followee,
 	})
