@@ -18,6 +18,7 @@ import (
 // Injectors from wire.go:
 
 func Init() *App {
+	loggerV1 := ioc.InitLogger()
 	interactiveServiceClient := ioc.InitInterActiveRpcClient()
 	articleServiceClient := ioc.InitArticleRpcClient()
 	cmdable := ioc.InitRedis()
@@ -26,7 +27,8 @@ func Init() *App {
 	rankingRepository := repository.NewCachedRankingRepository(redisRankingCache, rankingLocalCache)
 	rankingService := service.NewBatchRankingService(interactiveServiceClient, articleServiceClient, rankingRepository)
 	rankingServiceServer := grpc.NewRankingServiceServer(rankingService)
-	server := ioc.InitGRPCxServer(rankingServiceServer)
+	etcdClient := ioc.InitEtcdClient()
+	server := ioc.InitGRPCxServer(rankingServiceServer, etcdClient, loggerV1)
 	app := &App{
 		server: server,
 	}
@@ -37,4 +39,4 @@ func Init() *App {
 
 var serviceProviderSet = wire.NewSet(cache.NewRankingLocalCache, cache.NewRedisRankingCache, repository.NewCachedRankingRepository, service.NewBatchRankingService)
 
-var thirdProvider = wire.NewSet(ioc.InitRedis, ioc.InitInterActiveRpcClient, ioc.InitArticleRpcClient)
+var thirdProvider = wire.NewSet(ioc.InitLogger, ioc.InitRedis, ioc.InitEtcdClient, ioc.InitInterActiveRpcClient, ioc.InitArticleRpcClient)

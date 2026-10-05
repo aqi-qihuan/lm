@@ -1,6 +1,13 @@
 db:
   dsn: "root:root@tcp(localhost:13316)/lmbook"
 
+etcd:
+  endpoints:
+    - "localhost:12379"
+
 grpc:
-#  启动监听 8091 端口
-  port: 8091
+  server:
+    #  启动监听 8091 端口
+    port: 8091
+    etcdAddr: "localhost:12379"
+    etcdTTL: 60

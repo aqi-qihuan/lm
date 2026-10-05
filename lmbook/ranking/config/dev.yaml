@@ -1,14 +1,18 @@
-
 redis:
   addr: "localhost:6379"
 
-
+etcd:
+  endpoints:
+    - "localhost:12379"
 
 grpc:
   server:
-    addr: ":8092"
+    # 启动监听 8092 端口
+    port: 8092
+    etcdAddr: "localhost:12379"
+    etcdTTL: 60
   client:
     intr:
       addr: ":8090"
     article:
-      addr: ":8091"
+      addr: ":8097"

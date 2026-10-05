@@ -19,7 +19,9 @@ var serviceProviderSet = wire.NewSet(
 )
 
 var thirdProvider = wire.NewSet(
+	ioc.InitLogger,
 	ioc.InitRedis,
+	ioc.InitEtcdClient,
 	ioc.InitInterActiveRpcClient,
 	ioc.InitArticleRpcClient,
 )
