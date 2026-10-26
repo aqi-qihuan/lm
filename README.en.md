@@ -79,7 +79,7 @@ basic-go/
 
 ### Prerequisites
 
-- **Go**: 1.27+ (recommended 1.27.1+)
+- **Go**: 1.27+ (recommended 1.27.3+)
 - **MySQL**: 5.7+ or 8.0+
 - **Redis**: 6.0+
 - **Docker** & **Docker Compose** (optional, for containerized deployment)
